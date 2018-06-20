@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class BrightnessRegulator : MonoBehaviour {
 
 	//得点
-	private static int score = 0;
-
-	private string sText;
+	private int score = 0;
 
 	//Materialを入れる
 	Material myMaterial;
@@ -28,14 +26,13 @@ public class BrightnessRegulator : MonoBehaviour {
 	private GameObject scoreText;
 
 	//得点を更新する関数
-	void UpdateScore(int add){
+	/*void UpdateScore(int add){
 		
-		score += add;
-		this.sText = score.ToString ();
-        this.scoreText.GetComponent<Text>().text = this.sText;
-        Debug.Log (score);
+		this.score += add;
+        this.scoreText.GetComponent<Text>().text = "SCORE " + this.score;
+        Debug.Log (this.score);
 
-	}
+	}*/
 
 	// Use this for initialization
 	void Start () {
@@ -85,13 +82,26 @@ public class BrightnessRegulator : MonoBehaviour {
 		//角度を180に設定
 		this.degree = 180;
 
-		if (tag == "SmallStarTag") {
-			UpdateScore(5);
-		} else if (tag == "LargeStarTag") {
-			UpdateScore(15);
-		} else if (tag == "SmallCloudTag" || tag == "LargeCloudTag") {
-			UpdateScore(10);
-		}
+		if (other.gameObject.tag == "SmallStarTag") {
+
+            this.score += 5;
+            this.scoreText.GetComponent<Text>().text = "SCORE " + this.score;
+            Debug.Log(this.score);
+
+        } else if (other.gameObject.tag == "LargeStarTag") {
+
+            this.score += 15;
+            this.scoreText.GetComponent<Text>().text = "SCORE " + this.score;
+            Debug.Log(this.score);
+
+        } else if (other.gameObject.tag == "SmallCloudTag" || other.gameObject.tag == "LargeCloudTag") {
+
+            //UpdateScore(10);
+            this.score += 10;
+            this.scoreText.GetComponent<Text>().text = "SCORE " + this.score;
+            Debug.Log(this.score);
+
+        }
 
 	}
 

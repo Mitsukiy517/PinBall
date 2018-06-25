@@ -1,12 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BrightnessRegulator : MonoBehaviour {
-
-	//得点
-	private int score = 0;
 
 	//Materialを入れる
 	Material myMaterial;
@@ -22,23 +18,14 @@ public class BrightnessRegulator : MonoBehaviour {
 	//ターゲットのデフォルトの色
 	Color defaultColor = Color.white;
 
-	//得点を表示するテキスト
-	private GameObject scoreText;
+    public GameObject scoreUI;
 
-	//得点を更新する関数
-	/*void UpdateScore(int add){
-		
-		this.score += add;
-        this.scoreText.GetComponent<Text>().text = "SCORE " + this.score;
-        Debug.Log (this.score);
 
-	}*/
 
 	// Use this for initialization
 	void Start () {
 
-		//シーン中のScoreTextのTextオブジェクトを取得
-		this.scoreText = GameObject.Find ("Score");
+        scoreUI = GameObject.Find("Score");
 
 		//タグによって光らせる色を変える
 		if (tag == "SmallStarTag") {
@@ -82,25 +69,16 @@ public class BrightnessRegulator : MonoBehaviour {
 		//角度を180に設定
 		this.degree = 180;
 
-		if (other.gameObject.tag == "SmallStarTag") {
+		if (tag == "SmallStarTag") {
+            scoreUI.GetComponent<CountScore> ().UpdateScore(5);
 
-            this.score += 5;
-            this.scoreText.GetComponent<Text>().text = "SCORE " + this.score;
-            Debug.Log(this.score);
+        } else if (tag == "LargeStarTag") {
 
-        } else if (other.gameObject.tag == "LargeStarTag") {
+            scoreUI.GetComponent<CountScore>().UpdateScore(15);
 
-            this.score += 15;
-            this.scoreText.GetComponent<Text>().text = "SCORE " + this.score;
-            Debug.Log(this.score);
+        } else if (tag == "SmallCloudTag" || tag == "LargeCloudTag") {
 
-        } else if (other.gameObject.tag == "SmallCloudTag" || other.gameObject.tag == "LargeCloudTag") {
-
-            //UpdateScore(10);
-            this.score += 10;
-            this.scoreText.GetComponent<Text>().text = "SCORE " + this.score;
-            Debug.Log(this.score);
-
+            scoreUI.GetComponent<CountScore>().UpdateScore(10);
         }
 
 	}
